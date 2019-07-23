@@ -66,32 +66,31 @@ eggSeries2.addEventListener('click', () => {
  *  Main Click event
  */
 
-// displays img of random drop
-function renderLittleLegends (egg) {
-  const rarity = getRandomRarity()
-  if (egg === 'eggSeries1') {
-    console.log(rarity) // remove this later
-    console.log(pickLittleLegends[rarity])
-  } else if (egg === 'eggSeries2') {
-    console.log(rarity) // remove this later
-  }
-}
-
 const pickLittleLegends = {
-  legendary: () => {
+  'legendary': function () {
     const obj = littlelegends.egg_series_1.legendary.skins
     const rand = getRandomNum(obj.length)
     console.log(obj[rand])
   },
-  epic: () => {
+  'epic': function () {
     const obj = littlelegends.egg_series_1.epic.skins
     const rand = getRandomNum(obj.length)
     console.log(obj[rand])
   },
-  rare: () => {
+  'rare': function () {
     const obj = littlelegends.egg_series_1.rare.skins
     const rand = getRandomNum(obj.length)
     console.log(obj[rand])
+  }
+}
+
+// displays img of random drop
+function renderLittleLegends (egg) {
+  const rarity = getRandomRarity()
+  if (egg === 'eggSeries1') {
+    pickLittleLegends[rarity]()
+  } else if (egg === 'eggSeries2') {
+    pickLittleLegends[rarity]()
   }
 }
 
@@ -108,10 +107,8 @@ eggRollBtn.addEventListener('click', () => {
   }
 
   if (value === 'eggSeries1') {
-    console.log('eggSeries1') // remove this later
     renderLittleLegends(value)
   } else if (value === 'eggSeries2') {
-    console.log('eggSeries2') // remove this later
     renderLittleLegends(value)
   }
 })
