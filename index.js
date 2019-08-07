@@ -1,4 +1,4 @@
-// Holds general state of the application
+// Holds some state of the application
 const state = {
   eggSelected: null
 }
@@ -9,7 +9,6 @@ const dict = {}
 /*
  *  Helper functions that return a random rarity
  */
-
 function getRandomNum (max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
@@ -67,49 +66,12 @@ eggSeries2.addEventListener('click', () => {
 /*
  *  Main Click event
  */
+
 const pickLittleLegends = {
-  'legendary': function () {
-    const obj = littlelegends.egg_series_1.legendary.skins
-    const rand = getRandomNum(obj.length)
-    const openedEgg = obj[rand]
-    //console.log(openedEgg) //remove this later
-    if (openedEgg in dict === false) {
-      dict[openedEgg] = 1 
-    } else {
-      dict[openedEgg] += 1
-      if (dict[openedEgg] === 3) {
-        dict[openedEgg] = 1
-      }
-    }
-  },
-  'epic': function () {
-    const obj = littlelegends.egg_series_1.epic.skins
-    const rand = getRandomNum(obj.length)
-    const openedEgg = obj[rand]
-    //console.log(openedEgg) //remove this later
-    if (openedEgg in dict === false) {
-      dict[openedEgg] = 1 
-    } else {
-      dict[openedEgg] += 1
-      if (dict[openedEgg] === 3) {
-        dict[openedEgg] = 1
-      }
-    }
-  },
-  'rare': function () {
-    const obj = littlelegends.egg_series_1.rare.skins
-    const rand = getRandomNum(obj.length)
-    const openedEgg = obj[rand]
-    //console.log(openedEgg) // remove this later
-    if (openedEgg in dict === false) {
-      dict[openedEgg] = 1 
-    } else {
-      dict[openedEgg] += 1
-      if (dict[openedEgg] === 3) {
-        dict[openedEgg] = 1
-      }
-    }
-    const url = 'http://localhost:3000/api/egg1/' + openedEgg + '/' + dict[openedEgg]
+  // fetch request to retrieve image
+  fetchImg: function (openedEgg) {
+    const url = 'http://localhost:3000/api/' + state.eggSelected + '/' + openedEgg + '/' + dict[openedEgg]
+    console.log(url)
     fetch (url, {
       method: 'GET',
       headers: {
@@ -122,7 +84,64 @@ const pickLittleLegends = {
       console.log(json)
     })
     .catch((err) => console.log(err))
-  }
+  },
+  assignSeriesObj: function() {    
+    let obj = ''
+    switch (state.eggSelected) {
+      case 'eggSeries1':      
+        obj = littlelegends.egg_series_1.rare.skins
+      case 'eggSeries2':      
+        obj = littlelegends.egg_series_2.rare.skins
+      case null:      
+        console.log('theres an error in assignSeriesObj()')
+    }
+    return obj
+  },
+  'legendary': function () {
+    const seriesObj = pickLittleLegends.assignSeriesObj()
+    const rand = getRandomNum(seriesObj.length)
+    const openedEgg = seriesObj[rand]
+    //console.log(openedEgg) //remove this later
+    if (openedEgg in dict === false) {
+      dict[openedEgg] = 1 
+    } else {
+      dict[openedEgg] += 1
+      if (dict[openedEgg] === 3) {
+        dict[openedEgg] = 1
+      }
+    }
+    pickLittleLegends.fetchImg(openedEgg)
+  },
+  'epic': function () {
+    const seriesObj = pickLittleLegends.assignSeriesObj()
+    const rand = getRandomNum(seriesObj.length)
+    const openedEgg = seriesObj[rand]
+    //console.log(openedEgg) //remove this later
+    if (openedEgg in dict === false) {
+      dict[openedEgg] = 1 
+    } else {
+      dict[openedEgg] += 1
+      if (dict[openedEgg] === 3) {
+        dict[openedEgg] = 1
+      }
+    }
+    pickLittleLegends.fetchImg(openedEgg)
+  },
+  'rare': function () {
+    const seriesObj = pickLittleLegends.assignSeriesObj()
+    const rand = getRandomNum(seriesObj.length)
+    const openedEgg = seriesObj[rand]
+    //console.log(openedEgg) // remove this later
+    if (openedEgg in dict === false) {
+      dict[openedEgg] = 1 
+    } else {
+      dict[openedEgg] += 1
+      if (dict[openedEgg] === 3) {
+        dict[openedEgg] = 1
+      }
+    }
+    pickLittleLegends.fetchImg(openedEgg)    
+  } 
 }
 
 // Displays img of random drop
