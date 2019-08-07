@@ -1,7 +1,10 @@
-// holds general state of the application
+// Holds general state of the application
 const state = {
   eggSelected: null
 }
+
+// Holds keyvalue pairs of opened eggs
+const dict = {}
 
 /*
  *  Helper functions that return a random rarity
@@ -26,13 +29,13 @@ function getRandomRarity () {
  *  Renders img of the selected radio Button
  */
 
-// holds keyvalue pairs for eggSeries images
+// Holds key-value pairs for eggSeries images
 const eggList = {
   eggSeries1: './static/egg_series1.png',
   eggSeries2: './static/egg_series2.png'
 }
 
-// displays image of selected egg
+// Displays image of selected egg
 function showEgg (srcString) {
   const eggResult = document.getElementById('eggResult')
   if (eggResult.src === '') {
@@ -42,7 +45,7 @@ function showEgg (srcString) {
   }
 }
 
-// checks if eggSeries1 radio button is selected
+// Checks if eggSeries1 radio button is selected
 const eggSeries1 = document.getElementById('e1')
 eggSeries1.addEventListener('click', () => {
   if (eggSeries1.checked) {
@@ -51,8 +54,7 @@ eggSeries1.addEventListener('click', () => {
     showEgg(eggList[state.eggSelected])
   }
 })
-
-// checks if eggSeries2 radio button is selected
+// Checks if eggSeries2 radio button is selected
 const eggSeries2 = document.getElementById('e2')
 eggSeries2.addEventListener('click', () => {
   if (eggSeries2.checked) {
@@ -65,26 +67,65 @@ eggSeries2.addEventListener('click', () => {
 /*
  *  Main Click event
  */
-
 const pickLittleLegends = {
   'legendary': function () {
     const obj = littlelegends.egg_series_1.legendary.skins
     const rand = getRandomNum(obj.length)
-    console.log(obj[rand])
+    const openedEgg = obj[rand]
+    //console.log(openedEgg) //remove this later
+    if (openedEgg in dict === false) {
+      dict[openedEgg] = 1 
+    } else {
+      dict[openedEgg] += 1
+      if (dict[openedEgg] === 3) {
+        dict[openedEgg] = 1
+      }
+    }
   },
   'epic': function () {
     const obj = littlelegends.egg_series_1.epic.skins
     const rand = getRandomNum(obj.length)
-    console.log(obj[rand])
+    const openedEgg = obj[rand]
+    //console.log(openedEgg) //remove this later
+    if (openedEgg in dict === false) {
+      dict[openedEgg] = 1 
+    } else {
+      dict[openedEgg] += 1
+      if (dict[openedEgg] === 3) {
+        dict[openedEgg] = 1
+      }
+    }
   },
   'rare': function () {
     const obj = littlelegends.egg_series_1.rare.skins
     const rand = getRandomNum(obj.length)
-    console.log(obj[rand])
+    const openedEgg = obj[rand]
+    //console.log(openedEgg) // remove this later
+    if (openedEgg in dict === false) {
+      dict[openedEgg] = 1 
+    } else {
+      dict[openedEgg] += 1
+      if (dict[openedEgg] === 3) {
+        dict[openedEgg] = 1
+      }
+    }
+    const url = 'http://localhost:3000/api/egg1/' + openedEgg + '/' + dict[openedEgg]
+    fetch (url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors'
+    })
+    .then(res => res.json())
+    .then((json) => {
+      console.log(json)
+    })
+    .catch((err) => console.log(err))
   }
 }
 
-// displays img of random drop
+// Displays img of random drop
 function renderLittleLegends (egg) {
   const rarity = getRandomRarity()
   if (egg === 'eggSeries1') {

@@ -23,7 +23,7 @@ const littlelegends = {
         'Silverwing_Dawnglow',
         'Silverwing_Rosebloom',
         'Furyhorn_Molten',
-        'Furyhorn_Lionheard',
+        'Furyhorn_Lionheart',
         'Furyhorn_Tundra',
         'Hauntling_Shadow_Isles',
         'Hauntling_Fireborn',
