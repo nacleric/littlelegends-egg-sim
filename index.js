@@ -13,6 +13,7 @@ function getRandomNum (max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
 
+
 function getRandomRarity () {
   const randomNum = getRandomNum(100)
   if (randomNum > 0 && randomNum <= 5) {
@@ -30,8 +31,8 @@ function getRandomRarity () {
 
 // Holds key-value pairs for eggSeries images
 const eggList = {
-  eggSeries1: './static/egg_series1.png',
-  eggSeries2: './static/egg_series2.png'
+  egg_series_1: './static/egg_series1.png',
+  egg_series_2: './static/egg_series2.png'
 }
 
 // Displays image of selected egg
@@ -44,20 +45,20 @@ function showEgg (srcString) {
   }
 }
 
-// Checks if eggSeries1 radio button is selected
-const eggSeries1 = document.getElementById('e1')
-eggSeries1.addEventListener('click', () => {
-  if (eggSeries1.checked) {
-    state.eggSelected = 'eggSeries1'
+// Checks if egg_series_1 radio button is selected
+const egg_series_1 = document.getElementById('e1')
+egg_series_1.addEventListener('click', () => {
+  if (egg_series_1.checked) {
+    state.eggSelected = 'egg_series_1'
     console.log('radio button is checked') // remove this later
     showEgg(eggList[state.eggSelected])
   }
 })
-// Checks if eggSeries2 radio button is selected
-const eggSeries2 = document.getElementById('e2')
-eggSeries2.addEventListener('click', () => {
-  if (eggSeries2.checked) {
-    state.eggSelected = 'eggSeries2'
+// Checks if egg_series_2 radio button is selected
+const egg_series_2 = document.getElementById('e2')
+egg_series_2.addEventListener('click', () => {
+  if (egg_series_2.checked) {
+    state.eggSelected = 'egg_series_2'
     console.log('radio button is checked') // remove this later
     showEgg(eggList[state.eggSelected])
   }
@@ -66,90 +67,82 @@ eggSeries2.addEventListener('click', () => {
 /*
  *  Main Click event
  */
-
 const pickLittleLegends = {
-  // fetch request to retrieve image
-  fetchImg: function (openedEgg) {
-    const url = 'http://localhost:3000/api/' + state.eggSelected + '/' + openedEgg + '/' + dict[openedEgg]
+  // Gets the url for images in google cloud storage
+  getImg: function (eggSelected, species, skin, tier) {
+    const fileName = skin + '_Tier_' + tier + '.png'
+    const url = 'https://storage.googleapis.com/little_legends/static/' + eggSelected + '/' + species + '/' + fileName
     console.log(url)
-    fetch (url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors'
-    })
-    .then(res => res.json())
-    .then((json) => {
-      console.log(json)
-    })
-    .catch((err) => console.log(err))
+    console.log(species)
   },
-  assignSeriesObj: function() {    
+
+  // Keeps track of opened Eggs. If it hits 3 it gets deleted from the dictionary
+  // Passes string of the proper species to getImg() to construct the url of image location
+  memoize: function (openedEgg, dict) {
+    const regx = /[^_]+/.exec(openedEgg)
+    const species = regx.toString().toLowerCase()
+    if (openedEgg in dict === false) {
+      // dict[openedEgg] represents the tier number
+      pickLittleLegends.getImg(state.eggSelected, species, openedEgg, 1)
+      dict[openedEgg] = 1
+    } else {
+      if (dict[openedEgg] == 1) {
+        dict[openedEgg] = 2
+        pickLittleLegends.getImg(state.eggSelected, species, openedEgg, dict[openedEgg])
+      } else if (dict[openedEgg] == 2) {
+        dict[openedEgg] = 3
+        pickLittleLegends.getImg(state.eggSelected, species, openedEgg, dict[openedEgg])
+        delete dict[openedEgg]
+      }
+    }
+  },
+
+  // picks which eggSeries to retrieve from
+  assignSeriesObj: function (state) {
     let obj = ''
-    switch (state.eggSelected) {
-      case 'eggSeries1':      
-        obj = littlelegends.egg_series_1.rare.skins
-      case 'eggSeries2':      
-        obj = littlelegends.egg_series_2.rare.skins
-      case null:      
-        console.log('theres an error in assignSeriesObj()')
+    switch (state) {
+      case 'egg_series_1':
+        obj = littlelegends.egg_series_1
+        return obj
+      case 'egg_series_2':
+        obj = littlelegends.egg_series_2
+        return obj
+      case null:
+        console.log('error in assignSeriesObj()')
     }
-    return obj
   },
+
   'legendary': function () {
-    const seriesObj = pickLittleLegends.assignSeriesObj()
-    const rand = getRandomNum(seriesObj.length)
-    const openedEgg = seriesObj[rand]
-    //console.log(openedEgg) //remove this later
-    if (openedEgg in dict === false) {
-      dict[openedEgg] = 1 
-    } else {
-      dict[openedEgg] += 1
-      if (dict[openedEgg] === 3) {
-        dict[openedEgg] = 1
-      }
-    }
-    pickLittleLegends.fetchImg(openedEgg)
-  },
-  'epic': function () {
-    const seriesObj = pickLittleLegends.assignSeriesObj()
-    const rand = getRandomNum(seriesObj.length)
-    const openedEgg = seriesObj[rand]
-    //console.log(openedEgg) //remove this later
-    if (openedEgg in dict === false) {
-      dict[openedEgg] = 1 
-    } else {
-      dict[openedEgg] += 1
-      if (dict[openedEgg] === 3) {
-        dict[openedEgg] = 1
-      }
-    }
-    pickLittleLegends.fetchImg(openedEgg)
-  },
-  'rare': function () {
-    const seriesObj = pickLittleLegends.assignSeriesObj()
-    const rand = getRandomNum(seriesObj.length)
-    const openedEgg = seriesObj[rand]
+    const seriesObj = pickLittleLegends.assignSeriesObj(state.eggSelected)
+    const rand = getRandomNum(seriesObj.legendary.skins.length)
+    const openedEgg = seriesObj.legendary.skins[rand]
     //console.log(openedEgg) // remove this later
-    if (openedEgg in dict === false) {
-      dict[openedEgg] = 1 
-    } else {
-      dict[openedEgg] += 1
-      if (dict[openedEgg] === 3) {
-        dict[openedEgg] = 1
-      }
-    }
-    pickLittleLegends.fetchImg(openedEgg)    
-  } 
+    pickLittleLegends.memoize(openedEgg, dict)
+  },
+
+  'epic': function () {
+    const seriesObj = pickLittleLegends.assignSeriesObj(state.eggSelected)
+    const rand = getRandomNum(seriesObj.epic.skins.length)
+    const openedEgg = seriesObj.epic.skins[rand]
+    //console.log(openedEgg) // remove this later
+    pickLittleLegends.memoize(openedEgg, dict)
+  },
+
+  'rare': function () {
+    const seriesObj = pickLittleLegends.assignSeriesObj(state.eggSelected)
+    const rand = getRandomNum(seriesObj.rare.skins.length)
+    const openedEgg = seriesObj.rare.skins[rand]
+    //console.log(openedEgg) // remove this later
+    pickLittleLegends.memoize(openedEgg, dict)
+  }
 }
 
 // Displays img of random drop
 function renderLittleLegends (egg) {
   const rarity = getRandomRarity()
-  if (egg === 'eggSeries1') {
+  if (egg === 'egg_series_1') {
     pickLittleLegends[rarity]()
-  } else if (egg === 'eggSeries2') {
+  } else if (egg === 'egg_series_2') {
     pickLittleLegends[rarity]()
   }
 }
@@ -165,10 +158,12 @@ eggRollBtn.addEventListener('click', () => {
       value = radioButtons[i].value
     }
   }
-
-  if (value === 'eggSeries1') {
+  if (value === 'egg_series_1') {
     renderLittleLegends(value)
-  } else if (value === 'eggSeries2') {
+  } else if (value === 'egg_series_2') {
     renderLittleLegends(value)
   }
 })
+
+
+
