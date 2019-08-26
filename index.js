@@ -1,6 +1,7 @@
 // Holds some state of the application
-const state = {
-  eggSelected: null
+const appState = {
+  eggSelected: null,
+  rpCounter: 0
 }
 
 // Holds keyvalue pairs of opened eggs
@@ -49,18 +50,18 @@ function showEgg (srcString) {
 const egg_series_1 = document.getElementById('e1')
 egg_series_1.addEventListener('click', () => {
   if (egg_series_1.checked) {
-    state.eggSelected = 'egg_series_1'
+    appState.eggSelected = 'egg_series_1'
     console.log('radio button is checked') // remove this later
-    showEgg(eggList[state.eggSelected])
+    showEgg(eggList[appState.eggSelected])
   }
 })
 // Checks if egg_series_2 radio button is selected
 const egg_series_2 = document.getElementById('e2')
 egg_series_2.addEventListener('click', () => {
   if (egg_series_2.checked) {
-    state.eggSelected = 'egg_series_2'
+    appState.eggSelected = 'egg_series_2'
     console.log('radio button is checked') // remove this later
-    showEgg(eggList[state.eggSelected])
+    showEgg(eggList[appState.eggSelected])
   }
 })
 
@@ -73,7 +74,6 @@ const pickLittleLegends = {
     const fileName = skin + '_Tier_' + tier + '.png'
     const url = 'https://storage.googleapis.com/little_legends/static/' + eggSelected + '/' + species + '/' + fileName
     console.log(url)
-    console.log(species)
   },
 
   // Keeps track of opened Eggs. If it hits 3 it gets deleted from the dictionary
@@ -83,24 +83,24 @@ const pickLittleLegends = {
     const species = regx.toString().toLowerCase()
     if (openedEgg in dict === false) {
       // dict[openedEgg] represents the tier number
-      pickLittleLegends.getImg(state.eggSelected, species, openedEgg, 1)
+      pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, 1)
       dict[openedEgg] = 1
     } else {
       if (dict[openedEgg] == 1) {
         dict[openedEgg] = 2
-        pickLittleLegends.getImg(state.eggSelected, species, openedEgg, dict[openedEgg])
+        pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, dict[openedEgg])
       } else if (dict[openedEgg] == 2) {
         dict[openedEgg] = 3
-        pickLittleLegends.getImg(state.eggSelected, species, openedEgg, dict[openedEgg])
+        pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, dict[openedEgg])
         delete dict[openedEgg]
       }
     }
   },
 
   // picks which eggSeries to retrieve from
-  assignSeriesObj: function (state) {
+  assignSeriesObj: function (appState) {
     let obj = ''
-    switch (state) {
+    switch (appState) {
       case 'egg_series_1':
         obj = littlelegends.egg_series_1
         return obj
@@ -113,15 +113,15 @@ const pickLittleLegends = {
   },
 
   'legendary': function () {
-    const seriesObj = pickLittleLegends.assignSeriesObj(state.eggSelected)
-    const rand = getRandomNum(seriesObj.legendary.skins.length)
-    const openedEgg = seriesObj.legendary.skins[rand]
-    //console.log(openedEgg) // remove this later
-    pickLittleLegends.memoize(openedEgg, dict)
+    const seriesobj = picklittlelegends.assignseriesobj(appState.eggselected)
+    const rand = getrandomnum(seriesobj.legendary.skins.length)
+    const openedegg = seriesobj.legendary.skins[rand]
+    //console.log(openedegg) // remove this later
+    picklittlelegends.memoize(openedegg, dict)
   },
 
   'epic': function () {
-    const seriesObj = pickLittleLegends.assignSeriesObj(state.eggSelected)
+    const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
     const rand = getRandomNum(seriesObj.epic.skins.length)
     const openedEgg = seriesObj.epic.skins[rand]
     //console.log(openedEgg) // remove this later
@@ -129,7 +129,7 @@ const pickLittleLegends = {
   },
 
   'rare': function () {
-    const seriesObj = pickLittleLegends.assignSeriesObj(state.eggSelected)
+    const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
     const rand = getRandomNum(seriesObj.rare.skins.length)
     const openedEgg = seriesObj.rare.skins[rand]
     //console.log(openedEgg) // remove this later
@@ -139,6 +139,7 @@ const pickLittleLegends = {
 
 // Displays img of random drop
 function renderLittleLegends (egg) {
+  // picklittlelegends[]() calls either .legendary() .epic() .rare() depending on the randomly generated rarity
   const rarity = getRandomRarity()
   if (egg === 'egg_series_1') {
     pickLittleLegends[rarity]()
@@ -160,8 +161,10 @@ eggRollBtn.addEventListener('click', () => {
   }
   if (value === 'egg_series_1') {
     renderLittleLegends(value)
+    appState.rpCounter += 490
   } else if (value === 'egg_series_2') {
     renderLittleLegends(value)
+    appState.rpCounter += 490
   }
 })
 
