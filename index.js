@@ -69,6 +69,7 @@ egg_series_2.addEventListener('click', () => {
  *  Main Click event
  */
 const pickLittleLegends = {
+
   // Gets the url for images in google cloud storage
   getImg: function (eggSelected, species, skin, tier) {
     const fileName = skin + '_Tier_' + tier + '.png'
@@ -78,8 +79,13 @@ const pickLittleLegends = {
 
   // Keeps track of opened Eggs. If it hits 3 it gets deleted from the dictionary
   // Passes string of the proper species to getImg() to construct the url of image location
+  // TODO: might change name for this method since it does more than memoize
   memoize: function (openedEgg, dict) {
+    // Selects all the letters before underscore furyhorn_molten -> furyhorn
     const regx = /[^_]+/.exec(openedEgg)
+
+    // converts regex to a string than lowercases it
+    // passes the string to getImg to construct the url linking to google cloud storage
     const species = regx.toString().toLowerCase()
     if (openedEgg in dict === false) {
       // dict[openedEgg] represents the tier number
@@ -97,7 +103,7 @@ const pickLittleLegends = {
     }
   },
 
-  // picks which eggSeries to retrieve from
+  // Picks which egg_series to retrieve from
   assignSeriesObj: function (appState) {
     let obj = ''
     switch (appState) {
@@ -116,7 +122,6 @@ const pickLittleLegends = {
     const seriesobj = picklittlelegends.assignseriesobj(appState.eggselected)
     const rand = getrandomnum(seriesobj.legendary.skins.length)
     const openedegg = seriesobj.legendary.skins[rand]
-    //console.log(openedegg) // remove this later
     picklittlelegends.memoize(openedegg, dict)
   },
 
@@ -124,7 +129,6 @@ const pickLittleLegends = {
     const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
     const rand = getRandomNum(seriesObj.epic.skins.length)
     const openedEgg = seriesObj.epic.skins[rand]
-    //console.log(openedEgg) // remove this later
     pickLittleLegends.memoize(openedEgg, dict)
   },
 
@@ -132,7 +136,6 @@ const pickLittleLegends = {
     const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
     const rand = getRandomNum(seriesObj.rare.skins.length)
     const openedEgg = seriesObj.rare.skins[rand]
-    //console.log(openedEgg) // remove this later
     pickLittleLegends.memoize(openedEgg, dict)
   }
 }
@@ -148,25 +151,30 @@ function renderLittleLegends (egg) {
   }
 }
 
-// Click event for egg roll button
+
+// Button click event for egg roll button
 eggRollBtn.addEventListener('click', () => {
   let value = null
   const radioButtons = document.getElementsByName('radioButton')
 
-  // binds a value to each radio button
+  // Binds html value ID to each radio button
+  // Example: <input id="e1" type="radio" value="egg_series_1" name="radioButton">
   for (let i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
       value = radioButtons[i].value
     }
   }
+
   if (value === 'egg_series_1') {
     renderLittleLegends(value)
-    appState.rpCounter += 490
   } else if (value === 'egg_series_2') {
     renderLittleLegends(value)
-    appState.rpCounter += 490
   }
+  appState.rpCounter += 490
+  document.getElementById('rp-counter').innerHTML = appState.rpCounter
 })
+
+
 
 
 
