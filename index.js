@@ -1,7 +1,8 @@
 // Holds some state of the application
 const appState = {
   eggSelected: null,
-  rpCounter: 0
+  rpCounter: 0,
+  usdCounter: 0,
 }
 
 // Holds keyvalue pairs of opened eggs
@@ -70,22 +71,24 @@ egg_series_2.addEventListener('click', () => {
  */
 const pickLittleLegends = {
 
-  // Gets the url for images in google cloud storage
+  // Gets the url for images in google cloud storage and inserts into the DOM
   getImg: function (eggSelected, species, skin, tier) {
     const fileName = skin + '_Tier_' + tier + '.png'
     const url = 'https://storage.googleapis.com/little_legends/static/' + eggSelected + '/' + species + '/' + fileName
     console.log(url)
+    const eggResult = document.getElementById('eggResult')
+    eggResult.src = url
   },
 
   // Keeps track of opened Eggs. If it hits 3 it gets deleted from the dictionary
   // Passes string of the proper species to getImg() to construct the url of image location
-  // TODO: might change name for this method since it does more than memoize
+  // TODO: might change name for this method since it does more than memoization
   memoize: function (openedEgg, dict) {
     // Selects all the letters before underscore furyhorn_molten -> furyhorn
     const regx = /[^_]+/.exec(openedEgg)
 
-    // converts regex to a string than lowercases it
-    // passes the string to getImg to construct the url linking to google cloud storage
+    // Converts regex to a string than lowercases it
+    // Passes the string to getImg to construct the url linking to img at google cloud storage
     const species = regx.toString().toLowerCase()
     if (openedEgg in dict === false) {
       // dict[openedEgg] represents the tier number
@@ -172,6 +175,8 @@ eggRollBtn.addEventListener('click', () => {
   }
   appState.rpCounter += 490
   document.getElementById('rp-counter').innerHTML = appState.rpCounter
+  appState.usdCounter += 3.62
+  document.getElementById('usd-counter').innerHTML = appState.usdCounter.toFixed(2)
 })
 
 
