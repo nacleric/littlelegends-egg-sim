@@ -3,6 +3,7 @@ const appState = {
   eggSelected: null,
   rpCounter: 0,
   usdCounter: 0,
+  skinCounter: 0
 }
 
 // Holds keyvalue pairs of opened eggs
@@ -69,8 +70,8 @@ egg_series_2.addEventListener('click', () => {
 /*
  *  Main Click event
  */
-const pickLittleLegends = {
 
+const pickLittleLegends = {
   // Gets the url for images in google cloud storage and inserts into the DOM
   getImg: function (eggSelected, species, skin, tier) {
     const fileName = skin + '_Tier_' + tier + '.png'
@@ -177,6 +178,8 @@ eggRollBtn.addEventListener('click', () => {
   document.getElementById('rp-counter').innerHTML = appState.rpCounter
   appState.usdCounter += 3.62
   document.getElementById('usd-counter').innerHTML = appState.usdCounter.toFixed(2)
+  appState.skinCounter += 0.15
+  document.getElementById('skin-counter').innerHTML = appState.skinCounter.toFixed(1)
 })
 
 
