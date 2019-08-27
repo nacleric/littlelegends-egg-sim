@@ -48,19 +48,26 @@ function showEgg (srcString) {
   }
 }
 
-// Checks if egg_series_1 radio button is selected
+// Defaults to the first radio button being set to checked
+// Note to self: Did this because when a different radio button is selected and then reselected, the if statement wont run again
 const egg_series_1 = document.getElementById('e1')
+egg_series_1.checked = true
+if (egg_series_1.checked === true) {
+  appState.eggSelected = 'egg_series_1'
+  showEgg(eggList[appState.eggSelected])
+}
+// Checks if egg_series_1 radio button is selected
 egg_series_1.addEventListener('click', () => {
-  if (egg_series_1.checked) {
+  if (egg_series_1.checked === true) {
     appState.eggSelected = 'egg_series_1'
-    console.log('radio button is checked') // remove this later
     showEgg(eggList[appState.eggSelected])
   }
 })
+
 // Checks if egg_series_2 radio button is selected
 const egg_series_2 = document.getElementById('e2')
 egg_series_2.addEventListener('click', () => {
-  if (egg_series_2.checked) {
+  if (egg_series_2.checked === true) {
     appState.eggSelected = 'egg_series_2'
     console.log('radio button is checked') // remove this later
     showEgg(eggList[appState.eggSelected])
@@ -161,19 +168,12 @@ eggRollBtn.addEventListener('click', () => {
   let value = null
   const radioButtons = document.getElementsByName('radioButton')
 
-  // Binds html value ID to each radio button
-  // Example: <input id="e1" type="radio" value="egg_series_1" name="radioButton">
-  for (let i = 0; i < radioButtons.length; i++) {
-    if (radioButtons[i].checked) {
-      value = radioButtons[i].value
-    }
+  if (appState.eggSelected === 'egg_series_1') {
+    renderLittleLegends(appState.eggSelected)
+  } else if (appState.eggSelected === 'egg_series_2') {
+    renderLittleLegends(appState.eggSelected)
   }
 
-  if (value === 'egg_series_1') {
-    renderLittleLegends(value)
-  } else if (value === 'egg_series_2') {
-    renderLittleLegends(value)
-  }
   appState.rpCounter += 490
   document.getElementById('rp-counter').innerHTML = appState.rpCounter
   appState.usdCounter += 3.62
