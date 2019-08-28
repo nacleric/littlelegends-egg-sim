@@ -1,27 +1,77 @@
-.is-select {
-  background-color: red;
-}
-
-.pad-title {
-  padding-top: 20px;
-}
-
-#eggResult {
-  display: block;
-}
-
-#eggList {
-  display: block;
+html {
+    height: 100%;
 }
 
 body {
-  text-align: center;
+    font-family: 'Roboto Mono', sans-serif;
+    color: #8f5536;
 
+    /* makes footer stick to bottom */
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
-img {
-  display: block;
-  margin: 0 auto;
+h1 {
+    color: white;
 }
 
-/*--------------------*/
+h1 span {
+    background: #8f5536;
+}
+
+.content {
+    padding-left: 50px;
+}
+
+.footer {
+    /* background color = brown and controls height how large footer is */
+    background: #8f5536;
+    padding: 5px;
+    /* text color */
+    color: white;
+    /* flex box */
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.footer__widget {
+    display: flex;
+}
+
+.footer__widget--padding {
+    padding-left: 7px;
+}
+
+.footer__widget--underline {
+   text-decoration: underline;
+}
+
+.flex-container {
+    display: flex;
+}
+
+/*
+.box {
+    width: 250px;
+    border: 5px solid #8f5536;
+    padding: 35px;
+    margin: 5px;
+}
+
+.box--font {
+    font-size: 150%;
+}
+
+.box--font-center {
+    display: flex;
+    justify-content: center;
+}
+
+.box--padding {
+    padding-left: 10px;
+}
+*/
+
+
+
