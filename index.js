@@ -3,19 +3,33 @@ const appState = {
   eggSelected: null,
   rpCounter: 0,
   usdCounter: 0,
-  skinCounter: 0
+  skinCounter: 0,
+  // Holds keyvalue pairs of opened eggs
+  dict: {},
+  // Keeps track of rarities opened for the DOM
+  rarityTracker: {
+    'legendary': 0,
+    'epic': 0,
+    'rare': 0
+  }
 }
 
-// Holds keyvalue pairs of opened eggs
-const dict = {}
+//const appState.dict = {}
+/*
+const rarityTracker = {
+  'legendary': 0,
+  'epic': 0,
+  'rare': 0,
+}
+*/
 
 /*
  *  Helper functions that return a random rarity
  */
+
 function getRandomNum (max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
-
 
 function getRandomRarity () {
   const randomNum = getRandomNum(100)
@@ -28,11 +42,24 @@ function getRandomRarity () {
   }
 }
 
+function logRarity (rar, rt) {
+  if (rar === 'legendary') {
+    rt['legendary'] += 1
+    document.getElementById('legendaryCounter').innerHTML = rt['legendary']
+  } else if (rar === 'epic') {
+    rt['epic'] += 1
+    document.getElementById('epicCounter').innerHTML = rt['epic']
+  } else {
+    rt['rare'] += 1
+    document.getElementById('rareCounter').innerHTML = rt['rare']
+  }
+}
+
 /*
  *  Renders img of the selected radio Button
  */
 
-// Holds key-value pairs for eggSeries images
+// Holds key-value pairs for eggSeries image s
 const eggList = {
   egg_series_1: './static/egg_series1.png',
   egg_series_2: './static/egg_series2.png'
@@ -88,7 +115,7 @@ const pickLittleLegends = {
     eggResult.src = url
   },
 
-  // Keeps track of opened Eggs. If it hits 3 it gets deleted from the dictionary
+  // Keeps track of opened Eggs. If it hits 3 it gets deleted from the appState.dictionary
   // Passes string of the proper species to getImg() to construct the url of image location
   // TODO: might change name for this method since it does more than memoization
   memoize: function (openedEgg, dict) {
@@ -99,7 +126,7 @@ const pickLittleLegends = {
     // Passes the string to getImg to construct the url linking to img at google cloud storage
     const species = regx.toString().toLowerCase()
     if (openedEgg in dict === false) {
-      // dict[openedEgg] represents the tier number
+      // appState.dict[openedEgg] represents the tier number
       pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, 1)
       dict[openedEgg] = 1
     } else {
@@ -130,24 +157,24 @@ const pickLittleLegends = {
   },
 
   'legendary': function () {
-    const seriesobj = picklittlelegends.assignseriesobj(appState.eggselected)
-    const rand = getrandomnum(seriesobj.legendary.skins.length)
-    const openedegg = seriesobj.legendary.skins[rand]
-    picklittlelegends.memoize(openedegg, dict)
+    const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
+    const rand = getRandomNum(seriesObj.legendary.skins.length)
+    const openedEgg = seriesObj.legendary.skins[rand]
+    pickLittleLegends.memoize(openedEgg, appState.dict)
   },
 
   'epic': function () {
     const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
     const rand = getRandomNum(seriesObj.epic.skins.length)
     const openedEgg = seriesObj.epic.skins[rand]
-    pickLittleLegends.memoize(openedEgg, dict)
+    pickLittleLegends.memoize(openedEgg, appState.dict)
   },
 
   'rare': function () {
     const seriesObj = pickLittleLegends.assignSeriesObj(appState.eggSelected)
     const rand = getRandomNum(seriesObj.rare.skins.length)
     const openedEgg = seriesObj.rare.skins[rand]
-    pickLittleLegends.memoize(openedEgg, dict)
+    pickLittleLegends.memoize(openedEgg, appState.dict)
   }
 }
 
@@ -155,6 +182,7 @@ const pickLittleLegends = {
 function renderLittleLegends (egg) {
   // picklittlelegends[]() calls either .legendary() .epic() .rare() depending on the randomly generated rarity
   const rarity = getRandomRarity()
+  logRarity(rarity, appState.rarityTracker)
   if (egg === 'egg_series_1') {
     pickLittleLegends[rarity]()
   } else if (egg === 'egg_series_2') {

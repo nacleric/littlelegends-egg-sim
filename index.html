@@ -7,49 +7,37 @@
 
   <body>
     <div class="content">
-      <div class="container">
+      <div class="container__header">
         <h1>
           <span>Little Legends Egg Simulator</span>
         </h1>
         <p>Dedicated to helping your gacha game addiction</p>
       </div>
 
-      <!-- the app -->
-      <div class="container">
-        <h2>Select Egg Series:</h1>
-        <div id="eggList">
-          <input id="e1" type="radio" value="egg_series_1" name="radioButton"> Egg Series 1 <br>
-          <input id="e2" type="radio" value="egg_series_2" name="radioButton"> Egg Series 2 <br>
-        </div>
-
-        <div class="flex-container">
-          <div class="placeholder1">
-            <img id="eggResult" width="300px" height="300px" src="">
-            <button id="eggRollBtn" class="button is-primary">
-              test button
+      <div class="flex-container">
+        <div class="container__content">
+          <h2>Select Egg Series:</h2>
+          <div id="eggList">
+            <input id="e1" type="radio" value="egg_series_1" name="radioButton"> Egg Series 1 <br>
+            <input id="e2" type="radio" value="egg_series_2" name="radioButton"> Egg Series 2 <br>
+          </div>
+          <img id="eggResult" width="300px" height="300px" src="">
+          <div class="pls-center">
+            <button id="eggRollBtn" class="btn">
+              Roll
             </button>
           </div>
-          <!--
-          <div class="box box--font">
-            <div class="flex-container box--font-center">
-              <p id="rp-counter">0</p>
-              <p class="box--padding"> RP </p>
-            </div>
+        </div>
 
-            <div class="flex-container box--font-center">
-              <p> $ </p>
-              <p class="box--padding" id="usd-counter">0</p>
-            </div>
-
-            <div class="flex-container box--font-center">
-              <p id="skin-counter">0</p>
-            </div>
-            <span>Ultimate Skins</span>
-          </div>
-        -->
+        <div class="container__rarity">
+          <span class="dot"></span>
+          <h2>Legendaries:<span id='legendaryCounter'>0</span></h2>
+          <h2>Epics:<span id='epicCounter'>0</span></h2>
+          <h2>Rares:<span id='rareCounter'>0</span></h2>
         </div>
       </div>
     </div>
+
     <footer class="footer">
       <div class="footer__widget">
         <p id="rp-counter" class="footer__widget--underline">0</p>

@@ -1,77 +1,107 @@
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    font-family: 'Roboto Mono', sans-serif;
-    color: #8f5536;
+  font-family: 'Roboto Mono', sans-serif;
+  color: #8f5536;
 
-    /* makes footer stick to bottom */
-    min-height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+  /* makes footer stick to bottom */
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 h1 {
-    color: white;
+  color: white;
 }
 
 h1 span {
-    background: #8f5536;
+  background: #8f5536;
+  padding: 5px;
+}
+
+img {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .content {
-    padding-left: 50px;
+  padding-left: 50px;
 }
 
-.footer {
-    /* background color = brown and controls height how large footer is */
-    background: #8f5536;
-    padding: 5px;
-    /* text color */
-    color: white;
-    /* flex box */
-    display: flex;
-    justify-content: space-evenly;
+.pls-center {
+  text-align: center
 }
 
-.footer__widget {
-    display: flex;
+.container__header {
+  //border: 2px solid red;
 }
 
-.footer__widget--padding {
-    padding-left: 7px;
+.container__content {
+  width: 300px;
+
+  /*debug*/
+  //border: 2px solid red;
 }
 
-.footer__widget--underline {
-   text-decoration: underline;
+.container__rarity {
+  width: 200px;
+  padding-left: 100px;
+
+  /*debug*/
+  //border: 2px solid red;
 }
 
 .flex-container {
-    display: flex;
+  display: flex;
+
+  /*debug*/
+  //border: 2px solid red;
 }
 
-/*
-.box {
-    width: 250px;
-    border: 5px solid #8f5536;
-    padding: 35px;
-    margin: 5px;
+.btn {
+  font-family: 'Roboto Mono';
+  border: 2px solid #8f5536;
+  cursor: pointer;
+  font-size: 20px;
+  color: #8f5536;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.box--font {
-    font-size: 150%;
+.btn:hover {
+  background-color: #8f5536;
+  color: white;
 }
 
-.box--font-center {
-    display: flex;
-    justify-content: center;
+.footer {
+  background: #8f5536;
+  color: white;
+
+  /* flex box */
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.box--padding {
-    padding-left: 10px;
+.footer__widget {
+  display: flex;
 }
-*/
 
+.footer__widget--padding {
+  padding-left: 7px;
+}
+
+.footer__widget--underline {
+  text-decoration: underline;
+}
 
 
