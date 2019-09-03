@@ -3,6 +3,7 @@
     <title>little legends roulette</title>
     <link rel="stylesheet" type="text/css" href="/index.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap" rel="stylesheet">
+    <!--<script src="https://kit.fontawesome.com/b300a3acd8.js"></script>-->
   </header>
 
   <body>
@@ -11,15 +12,24 @@
         <h1>
           <span>Little Legends Egg Simulator</span>
         </h1>
-        <p>Dedicated to helping your gacha game addiction</p>
+        <!--<i class="dropbtn icon fas fa-cog fa-3x"></i>-->
       </div>
+      <p>Dedicated to helping your gacha game addiction</p>
+      <p>Drop rates: 5%(legendary), 20%(epic), 75%(rare)</p>
 
       <div class="flex-container">
         <div class="container__content">
           <h2>Select Egg Series:</h2>
           <div id="eggList">
-            <input id="e1" type="radio" value="egg_series_1" name="radioButton"> Egg Series 1 <br>
-            <input id="e2" type="radio" value="egg_series_2" name="radioButton"> Egg Series 2 <br>
+            <div class="radio--flex">
+              <input id="e1" type="radio" value="egg_series_1" name="radioButton"> Egg Series 1 <br>
+            </div>
+            <div class="radio--flex">
+              <input id="e2" type="radio" value="egg_series_2" name="radioButton"> Egg Series 2 <br>
+            </div>
+            <div class="radio--flex">
+              <input id="e3" type="radio" value="egg_series_3" name="radioButton"> Egg Series 3 <br>
+            </div>
           </div>
           <img id="eggResult" width="300px" height="300px" src="">
           <div class="pls-center">
@@ -30,15 +40,15 @@
         </div>
 
         <div class="container__rarity">
-          <span class="dot"></span>
-          <h2>Legendaries:<span id='legendaryCounter'>0</span></h2>
-          <h2>Epics:<span id='epicCounter'>0</span></h2>
-          <h2>Rares:<span id='rareCounter'>0</span></h2>
+          <h2 class="container__rarity--underline-legendary">Legendaries:<span id='legendaryCounter'>0</span></h2>
+          <h2 class="container__rarity--underline-epic">Epics:<span id='epicCounter'>0</span></h2>
+          <h2 class="container__rarity--underline-rare">Rares:<span id='rareCounter'>0</span></h2>
         </div>
       </div>
     </div>
 
     <footer class="footer">
+      <p> Your wallet: </p>
       <div class="footer__widget">
         <p id="rp-counter" class="footer__widget--underline">0</p>
         <p class="footer__widget--padding"> RP </p>
@@ -52,6 +62,9 @@
         <p class="footer__widget--padding">Spirit Guard Udyr's</p>
       </div>
     </footer>
+
+
+
   </body>
 
   <script src="/index.js"></script>

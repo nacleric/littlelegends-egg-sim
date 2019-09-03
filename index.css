@@ -26,6 +26,16 @@ img {
   padding-bottom: 10px;
 }
 
+/*
+.icon {
+  display: block;
+  margin: auto;
+}
+
+.icon:hover {
+  color: red;
+}
+
 .dot {
   height: 25px;
   width: 25px;
@@ -33,6 +43,14 @@ img {
   border-radius: 50%;
   display: inline-block;
 }
+
+.dropbtn {
+  color:red;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+*/
 
 .content {
   padding-left: 50px;
@@ -43,6 +61,7 @@ img {
 }
 
 .container__header {
+  display: flex;
   //border: 2px solid red;
 }
 
@@ -59,6 +78,20 @@ img {
 
   /*debug*/
   //border: 2px solid red;
+}
+
+.container__rarity--underline-legendary {
+  border-bottom: 3px solid purple;
+}
+
+.container__rarity--underline-epic {
+  border-bottom: 3px solid blue;
+  width: 100px;
+}
+
+.container__rarity--underline-rare {
+  border-bottom: 3px solid green;
+  width: 100px;
 }
 
 .flex-container {
@@ -87,7 +120,6 @@ img {
   background: #8f5536;
   color: white;
 
-  /* flex box */
   display: flex;
   justify-content: space-evenly;
 }
@@ -104,4 +136,33 @@ img {
   text-decoration: underline;
 }
 
+/* custom radio button */
+.radio--flex {
+  display: flex;
+  align-items: center;
+}
 
+input[type="radio"] {
+  /* remove standard background appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* create custom radiobutton appearance */
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  padding: 6px;
+  /* background-color only for content */
+  background-clip: content-box;
+  border: 3px solid #8f5536;
+  background-color: #e7e6e7;
+  border-radius: 20%;
+
+  margin: 5 5px;
+
+}
+
+/* appearance for checked radiobutton */
+input[type="radio"]:checked {
+  background-color: #8f5536;
+}

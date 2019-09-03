@@ -14,15 +14,6 @@ const appState = {
   }
 }
 
-//const appState.dict = {}
-/*
-const rarityTracker = {
-  'legendary': 0,
-  'epic': 0,
-  'rare': 0,
-}
-*/
-
 /*
  *  Helper functions that return a random rarity
  */
@@ -62,7 +53,8 @@ function logRarity (rar, rt) {
 // Holds key-value pairs for eggSeries image s
 const eggList = {
   egg_series_1: './static/egg_series1.png',
-  egg_series_2: './static/egg_series2.png'
+  egg_series_2: './static/egg_series2.png',
+  egg_series_3: './static/egg_series3.png'
 }
 
 // Displays image of selected egg
@@ -87,6 +79,7 @@ if (egg_series_1.checked === true) {
 egg_series_1.addEventListener('click', () => {
   if (egg_series_1.checked === true) {
     appState.eggSelected = 'egg_series_1'
+    console.log('radio button is checked eggseries1') // remove this later
     showEgg(eggList[appState.eggSelected])
   }
 })
@@ -96,7 +89,17 @@ const egg_series_2 = document.getElementById('e2')
 egg_series_2.addEventListener('click', () => {
   if (egg_series_2.checked === true) {
     appState.eggSelected = 'egg_series_2'
-    console.log('radio button is checked') // remove this later
+    console.log('radio button is checked eggseries2') // remove this later
+    showEgg(eggList[appState.eggSelected])
+  }
+})
+
+// Checks if egg_series_2 radio button is selected
+const egg_series_3 = document.getElementById('e3')
+egg_series_3.addEventListener('click', () => {
+  if (egg_series_3.checked === true) {
+    appState.eggSelected = 'egg_series_3'
+    console.log('radio button is checked eggseries3') // remove this later
     showEgg(eggList[appState.eggSelected])
   }
 })
@@ -120,11 +123,8 @@ const pickLittleLegends = {
   // TODO: might change name for this method since it does more than memoization
   memoize: function (openedEgg, dict) {
     // Selects all the letters before underscore furyhorn_molten -> furyhorn
-    const regx = /[^_]+/.exec(openedEgg)
+    const species = /[^_]+/.exec(openedEgg)
 
-    // Converts regex to a string than lowercases it
-    // Passes the string to getImg to construct the url linking to img at google cloud storage
-    const species = regx.toString().toLowerCase()
     if (openedEgg in dict === false) {
       // appState.dict[openedEgg] represents the tier number
       pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, 1)
@@ -150,6 +150,9 @@ const pickLittleLegends = {
         return obj
       case 'egg_series_2':
         obj = littlelegends.egg_series_2
+        return obj
+      case 'egg_series_3':
+        obj = littlelegends.egg_series_3
         return obj
       case null:
         console.log('error in assignSeriesObj()')
@@ -187,6 +190,8 @@ function renderLittleLegends (egg) {
     pickLittleLegends[rarity]()
   } else if (egg === 'egg_series_2') {
     pickLittleLegends[rarity]()
+  } else if (egg === 'egg_series_3') {
+    pickLittleLegends[rarity]()
   }
 }
 
@@ -199,6 +204,8 @@ eggRollBtn.addEventListener('click', () => {
   if (appState.eggSelected === 'egg_series_1') {
     renderLittleLegends(appState.eggSelected)
   } else if (appState.eggSelected === 'egg_series_2') {
+    renderLittleLegends(appState.eggSelected)
+  } else if (appState.eggSelected === 'egg_series_3') {
     renderLittleLegends(appState.eggSelected)
   }
 
