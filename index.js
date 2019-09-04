@@ -52,9 +52,9 @@ function logRarity (rar, rt) {
 
 // Holds key-value pairs for eggSeries image s
 const eggList = {
-  egg_series_1: './static/egg_series1.png',
-  egg_series_2: './static/egg_series2.png',
-  egg_series_3: './static/egg_series3.png'
+  egg_series_1: 'https://nacleric.github.io/static/egg_series1.png',
+  egg_series_2: 'https://nacleric.github.io/static/egg_series2.png',
+  egg_series_3: 'https://nacleric.github.io/static/egg_series3.png'
 }
 
 // Displays image of selected egg
