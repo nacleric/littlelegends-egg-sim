@@ -52,9 +52,9 @@ function logRarity (rar, rt) {
 
 // Holds key-value pairs for eggSeries image s
 const eggList = {
-  egg_series_1: 'https://nacleric.github.io/littlelegends-egg-sim/static/egg_series1.png',
-  egg_series_2: 'https://nacleric.github.io/littlelegends-egg-sim/static/egg_series2.png',
-  egg_series_3: 'https://nacleric.github.io/littlelegends-egg-sim/static/egg_series3.png'
+  egg_series_1: '/static/egg_series1.png',
+  egg_series_2: '/static/egg_series2.png',
+  egg_series_3: '/static/egg_series3.png'
 }
 
 // Displays image of selected egg
@@ -79,7 +79,6 @@ if (egg_series_1.checked === true) {
 egg_series_1.addEventListener('click', () => {
   if (egg_series_1.checked === true) {
     appState.eggSelected = 'egg_series_1'
-    console.log('radio button is checked eggseries1') // remove this later
     showEgg(eggList[appState.eggSelected])
   }
 })
@@ -89,7 +88,6 @@ const egg_series_2 = document.getElementById('e2')
 egg_series_2.addEventListener('click', () => {
   if (egg_series_2.checked === true) {
     appState.eggSelected = 'egg_series_2'
-    console.log('radio button is checked eggseries2') // remove this later
     showEgg(eggList[appState.eggSelected])
   }
 })
@@ -99,7 +97,6 @@ const egg_series_3 = document.getElementById('e3')
 egg_series_3.addEventListener('click', () => {
   if (egg_series_3.checked === true) {
     appState.eggSelected = 'egg_series_3'
-    console.log('radio button is checked eggseries3') // remove this later
     showEgg(eggList[appState.eggSelected])
   }
 })
@@ -112,7 +109,7 @@ const pickLittleLegends = {
   // Gets the url for images in google cloud storage and inserts into the DOM
   getImg: function (eggSelected, species, skin, tier) {
     const fileName = skin + '_Tier_' + tier + '.png'
-    const url = 'https://storage.googleapis.com/little_legends/static/' + eggSelected + '/' + species + '/' + fileName
+    const url = 'https://vignette.wikia.nocookie.net/leagueoflegends/images/d/d6/' + eggSelected + '/' + species + '/' + fileName + '/revision/latest?cb=20190612162426'
     console.log(url)
     const eggResult = document.getElementById('eggResult')
     eggResult.src = url
