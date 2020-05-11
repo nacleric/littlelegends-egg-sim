@@ -107,32 +107,30 @@ egg_series_3.addEventListener('click', () => {
 
 const pickLittleLegends = {
   // Gets the url for images in google cloud storage and inserts into the DOM
-  getImg: function (eggSelected, species, skin, tier) {
-    const fileName = skin + '_Tier_' + tier + '.png'
-    const url = 'https://vignette.wikia.nocookie.net/leagueoflegends/images/d/d6/' + eggSelected + '/' + species + '/' + fileName + '/revision/latest?cb=20190612162426'
-    console.log(url)
+  getImg: function (skin, tierNumber) {
+    const filename = skin + '_tier' + tierNumber + '.png'
+    const url = 'https://cdn.lolchess.gg/images/tft/companions/tooltip_' + filename
     const eggResult = document.getElementById('eggResult')
     eggResult.src = url
+    console.log(url)
   },
 
   // Keeps track of opened Eggs. If it hits 3 it gets deleted from the appState.dictionary
   // Passes string of the proper species to getImg() to construct the url of image location
   // TODO: might change name for this method since it does more than memoization
   memoize: function (openedEgg, dict) {
-    // Selects all the letters before underscore furyhorn_molten -> furyhorn
-    const species = /[^_]+/.exec(openedEgg)
 
     if (openedEgg in dict === false) {
       // appState.dict[openedEgg] represents the tier number
-      pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, 1)
+      pickLittleLegends.getImg(openedEgg, 1)
       dict[openedEgg] = 1
     } else {
       if (dict[openedEgg] == 1) {
         dict[openedEgg] = 2
-        pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, dict[openedEgg])
+        pickLittleLegends.getImg(openedEgg, dict[openedEgg])
       } else if (dict[openedEgg] == 2) {
         dict[openedEgg] = 3
-        pickLittleLegends.getImg(appState.eggSelected, species, openedEgg, dict[openedEgg])
+        pickLittleLegends.getImg(openedEgg, dict[openedEgg])
         delete dict[openedEgg]
       }
     }

@@ -2,96 +2,97 @@ const littlelegends = {
   egg_series_1: {
     legendary: {
       skins: [
-        'Silverwing_Lost',
-        'Furyhorn_Sugarcone',
-        'Hauntling_Shadowmask'
+        'grumpylion_icecream',
+        'ghosty_black',
+        'griffin_dark',
       ]
     },
     epic: {
       skins: [
-        'Silverwing_Tropical',
-        'Silverwing_Snow_Cherry',
-        'Furyhorn_Void-marked',
-        'Furyhorn_Willowbark',
-        'Hauntling_Dark_Matter',
-        'Hauntling_Lunar_Claw'
+        'grumpylion_void',
+        'grumpylion_green',
+        'ghosty_blue',
+        'ghosty_purple',
+        'griffin_hawk',
+        'griffin_parrot'
       ]
     },
     rare: {
       skins: [
-        'Silverwing_Demacian',
-        'Silverwing_Dawnglow',
-        'Silverwing_Rosebloom',
-        'Furyhorn_Molten',
-        'Furyhorn_Lionheart',
-        'Furyhorn_Tundra',
-        'Hauntling_Shadow_Isles',
-        'Hauntling_Fireborn',
-        'Hauntling_Toxic'
+        'grumpylion_red',
+        'grumpylion_orange',
+        'grumpylion_dark',
+        'ghosty_spooky',
+        'ghosty_green',
+        'ghosty_fire',
+        'griffin_cream',
+        'griffin_pink',
+        'griffin_yellow'
       ]
     }
   },
   egg_series_2: {
     legendary: {
       skins: [
-        'Molediver_Skydance',
-        'Featherknight_Ravenlord',
-        'Runespirit_Brambleback'
+        'miner_rainbow',
+        'minigolem_lava',
+        'penguknight_dark',
       ]
     },
     epic: {
       skins: [
-        'Molediver_Clumsy',
-        'Molediver_Toxic',
-        'Featherknight_Extra_Spicy',
-        'Featherknight_True_Ice',
-        'Runespirit_Black_Mist',
-        'Runespirit_Sakura'
+        'miner_dark',
+        'miner_yellow',
+        'minigolem_dark',
+        'minigolem_spring',
+        'penguknight_rooster',
+        'penguknight_ice'
       ]
     },
     rare: {
       skins: [
-        'Molediver_Soft-nosed',
-        'Molediver_Blazebattle',
-        'Molediver_Fresh-water',
-        'Featherknight_Pengu',
-        'Featherknight_Cheeper',
-        'Featherknight_Sakura',
-        'Runespirit_Sentinel',
-        'Runespirit_Glacial',
-        'Runespirit_Seedling'
+        'miner_grey',
+        'miner_red',
+        'miner_green',
+        'minigolem_grey',
+        'minigolem_ice',
+        'minigolem_moss',
+        'penguknight_classic',
+        'penguknight_yellow',
+        'penguknight_owl'
+
       ]
     }
   },
   egg_series_3: {
     legendary: {
       skins: [
-        'Hushtail_Eternal',
-        'Paddlemar_Yuletide',
-        'Protector_Sunborn'
+        'gemtiger_sunborne',
+        'spiritfox_eternal',
+        'turtle_yuletide',
       ]
     },
     epic: {
       skins: [
-        'Hushtail_Monarch',
-        'Hushtail_Untamed',
-        'Paddlemar_Caldera',
-        'Paddlemar_Glamorous',
-        'Protector_Fierece',
-        'Protector_Skygem'
+        'gemtiger_fierce',
+        'gemtiger_skygem',
+        'spiritfox_untamed',
+        'spiritfox_monarch',
+        'turtle_glamorous',
+        'turtle_caldera',
       ]
     },
     rare: {
       skins: [
-        'Hushtail_Moontipped',
-        'Hushtail_Fae',
-        'Hushtail_Mistberry',
-        'Paddlemar_Jade',
-        'Paddlemar_Rosebloom',
-        'Paddlemar_Tidepool',
-        'Protector_Jeweled',
-        'Protector_Reigning',
-        'Protector_Shadowgem'
+        'gemtiger_jeweled',
+        'gemtiger_reigning',
+        'gemtiger_shadowgem',
+        'spiritfox_moontipped',
+        'spiritfox_fae',
+        'spiritfox_mistberry',
+        'turtle_jade',
+        'turtle_tidepool',
+        'turtle_rosebloom',
       ]
     }
   }
